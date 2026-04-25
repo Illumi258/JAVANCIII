@@ -11,36 +11,22 @@ public class Account {
         this.accountNumber = accountNumber;
         this.balance = initialDeposit;
         this.transactionHistory = new ArrayList<>();
-        
-        // Record the opening of the account
-        addTransaction("INITIAL", initialDeposit);
+        addTransaction("INITIAL DEPOSIT", initialDeposit);
     }
 
-    private void addTransaction(String type, double amount) {
+    public void addTransaction(String type, double amount) {
         transactionHistory.add(new Transaction(type, amount));
     }
 
     public void displayHistory() {
-        System.out.println("\n--- Transaction History for " + accountNumber + " ---");
+        System.out.println("\n--- History for Account: " + accountNumber + " ---");
         if (transactionHistory.isEmpty()) {
-            System.out.println("No transactions found.");
+            System.out.println("No records found.");
         } else {
             for (Transaction t : transactionHistory) {
                 System.out.println(t);
             }
         }
-    }
-
-    public String getAccountNumber() { 
-        return accountNumber; 
-    }
-
-    public double getBalance() { 
-        return balance; 
-    }
-
-    public String getHolder() { 
-        return accountHolder; 
     }
 
     public void deposit(double amount) {
@@ -53,9 +39,27 @@ public class Account {
     public boolean withdraw(double amount) {
         if (amount > 0 && amount <= balance) {
             balance -= amount;
-            addTransaction("WITHDRAW", amount);
+            addTransaction("WITHDRAWAL", amount);
             return true;
         }
         return false;
     }
+
+    public boolean transferOut(double amount, String toAccount) {
+        if (amount > 0 && amount <= balance) {
+            balance -= amount;
+            addTransaction("SENT TO " + toAccount, amount);
+            return true;
+        }
+        return false;
+    }
+
+    public void transferIn(double amount, String fromAccount) {
+        balance += amount;
+        addTransaction("RECEIVED FROM " + fromAccount, amount);
+    }
+
+    public String getAccountNumber() { return accountNumber; }
+    public double getBalance() { return balance; }
+    public String getAccountHolder() { return accountHolder; }
 }
