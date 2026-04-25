@@ -50,7 +50,6 @@ public class BankApp {
         
         try {
             double deposit = Double.parseDouble(scanner.nextLine());
-            // Create the account and link it to the user
             String accNum = "ACC" + (users.size() + 100);
             Account newAcc = new Account(user, accNum, deposit);
             users.add(new User(user, pass, newAcc));
@@ -81,7 +80,8 @@ public class BankApp {
         System.out.println("1. Check Balance");
         System.out.println("2. Deposit");
         System.out.println("3. Withdraw");
-        System.out.println("4. Logout");
+        System.out.println("4. Transaction History");
+        System.out.println("5. Logout");
         System.out.print("Choice: ");
 
         String choice = scanner.nextLine();
@@ -114,6 +114,9 @@ public class BankApp {
                 }
                 break;
             case "4":
+                acc.displayHistory();
+                break;
+            case "5":
                 currentUser = null;
                 System.out.println("Logged out.");
                 break;
