@@ -14,7 +14,7 @@ public class BankApp {
     }
 
     private static void showAuthMenu() {
-        System.out.println("\n--- Java Bank Main Menu ---");
+        System.out.println("\n------ BENNY BANK ------");
         System.out.println("1. Register (Create Account)\n2. Login (Using Account Number)\n3. Exit");
         System.out.print("Choice: ");
         String choice = scanner.nextLine();

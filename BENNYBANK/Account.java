@@ -33,25 +33,43 @@ public class Account {
         if (amount > 0) {
             balance += amount;
             addTransaction("DEPOSIT", amount);
+        } else {
+            System.out.println("Error: Deposit amount must be positive.");
         }
     }
 
     public boolean withdraw(double amount) {
-        if (amount > 0 && amount <= balance) {
+        if (amount <= 0) {
+            System.out.println("Error: Withdrawal amount must be positive.");
+            return false;
+        }
+
+        if (amount <= balance) {
             balance -= amount;
             addTransaction("WITHDRAWAL", amount);
             return true;
+        } else {
+            // Insufficient funds error message
+            System.out.println("Error: Insufficient balance. Current balance: " + balance + ", Attempted: " + amount);
+            return false;
         }
-        return false;
     }
 
     public boolean transferOut(double amount, String toAccount) {
-        if (amount > 0 && amount <= balance) {
+        if (amount <= 0) {
+            System.out.println("Error: Transfer amount must be positive.");
+            return false;
+        }
+
+        if (amount <= balance) {
             balance -= amount;
             addTransaction("SENT TO " + toAccount, amount);
             return true;
+        } else {
+            // Insufficient funds error message for transfers
+            System.out.println("Error: Transfer failed. Insufficient funds in account " + accountNumber);
+            return false;
         }
-        return false;
     }
 
     public void transferIn(double amount, String fromAccount) {
